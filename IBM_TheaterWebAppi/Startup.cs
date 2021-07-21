@@ -1,4 +1,6 @@
 using IBM_TheaterWebAppi.Context;
+using IBM_TheaterWebAppi.Services.Repositories;
+using IBM_TheaterWebAppi.Services.UnitsOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +41,16 @@ namespace IBM_TheaterWebAppi
 
             var connectionString = Configuration["ConnectionStrings:TheaterDBConnectionString"];
             services.AddDbContext<TheaterContext>(o => o.UseSqlServer(connectionString));
+
+            // SS: Adding services on the container
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITheaterRepository, TheaterRepository>();
+            services.AddScoped<IActorRepository, ActorRepository>();
+
+
+            services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
+            services.AddScoped<ITheaterUnitOfWork, TheaterUnitOfWork>();
+            
 
         }
 
