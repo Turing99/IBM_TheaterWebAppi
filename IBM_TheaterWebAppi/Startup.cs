@@ -50,7 +50,10 @@ namespace IBM_TheaterWebAppi
 
             services.AddScoped<IUserUnitOfWork, UserUnitOfWork>();
             services.AddScoped<ITheaterUnitOfWork, TheaterUnitOfWork>();
-            
+
+            services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
         }
 
@@ -66,12 +69,10 @@ namespace IBM_TheaterWebAppi
                 app.UseRouting();
 
                 app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapGet("/", async context =>
-                    {
-                        await context.Response.WriteAsync("Hello World!");
-                    });
+                {                
+                    endpoints.MapControllers();
                 });
+                
             }
         }
 }
